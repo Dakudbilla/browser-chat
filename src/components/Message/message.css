@@ -16,6 +16,10 @@
     font-weight: 500;
 }
 
+.message-header{
+    font-weight: 300;
+}
+
 .isMineMessage{
     align-self: flex-end;
     text-align: end;

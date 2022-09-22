@@ -9,12 +9,13 @@ import { persistStore, persistReducer,
 import autoMergeLevel2 from "redux-persist/es/stateReconciler/autoMergeLevel2"
 import storage from "redux-persist/lib/storage" 
 import crossBrowserListener from "../utils/reduxpersist-listener"
-import { rootReducer } from "./rootReducer"
+import { combinedReducer, rootReducer } from "./rootReducer"
 
  
 export const persistConfig = {
     key: "browser-chat",
     storage,
+    blacklist:["join"]
     // stateReconciler: autoMergeLevel2
   }
    
@@ -38,6 +39,6 @@ export const persistor = persistStore(store)
 //window.addEventListener("storage", crossBrowserListener(store, persistConfig));
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType<typeof combinedReducer>
 
 export type AppDispatch = typeof store.dispatch

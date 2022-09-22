@@ -6,7 +6,7 @@ interface JoinChatState{
 }
 
 const initialState:JoinChatState={
-    username:"joi"
+    username:""
 }
 
 export const joinChatSlice = createSlice({

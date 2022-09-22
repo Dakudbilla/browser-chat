@@ -4,7 +4,7 @@ import joinChatReducer from "../features/JoinChat/joinChatSlice";
 import { RootState } from "./store";
 
 // Combines reducers
-const combinedReducer = combineReducers({
+export const combinedReducer = combineReducers({
     join:joinChatReducer,
     chats:chatReducer
   });
