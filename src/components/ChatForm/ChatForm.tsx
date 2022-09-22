@@ -6,6 +6,8 @@ const ChatForm = () => {
   const [message, setMessage] = useState("");
   const username = useAppSelector((state) => state.join.username);
   const dispatch = useAppDispatch();
+
+  // dispatch new message action to add it to store
   const handleMessageSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(
