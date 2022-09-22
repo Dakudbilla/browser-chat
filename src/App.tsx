@@ -1,8 +1,7 @@
+import "./App.css";
 
-import './App.css'
+const App = () => {
+  return <div>Chat App</div>;
+};
 
-const App=()=>{
-  return <div>Chat App</div>
-}
-
-export default App
+export default App;
