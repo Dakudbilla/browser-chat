@@ -15,8 +15,8 @@ import { combinedReducer, rootReducer } from "./rootReducer"
 export const persistConfig = {
     key: "browser-chat",
     storage,
-    blacklist:["join"]
-    // stateReconciler: autoMergeLevel2
+    blacklist:["join"],
+    stateReconciler: autoMergeLevel2
   }
    
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -36,7 +36,7 @@ export const store = configureStore({
 export const persistor = persistStore(store)
 
 // subscribe to changes from localstorage
-//window.addEventListener("storage", crossBrowserListener(store, persistConfig));
+window.addEventListener("storage", crossBrowserListener(store, persistConfig));
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof combinedReducer>
