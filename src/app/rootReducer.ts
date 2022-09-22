@@ -1,10 +1,12 @@
 import { AnyAction, combineReducers,Reducer } from "@reduxjs/toolkit";
+import chatReducer  from "../features/Chat/chatSlice";
 import joinChatReducer from "../features/JoinChat/joinChatSlice";
 import { RootState } from "./store";
 
 // Combines reducers
-const combinedReducer = combineReducers({
-    join:joinChatReducer
+export const combinedReducer = combineReducers({
+    join:joinChatReducer,
+    chats:chatReducer
   });
   
   

@@ -6,39 +6,39 @@ import { persistStore, persistReducer,
     PERSIST,
     PURGE,
     REGISTER,} from "redux-persist"
-import hardSet from "redux-persist/lib/stateReconciler/hardSet"
+import autoMergeLevel2 from "redux-persist/es/stateReconciler/autoMergeLevel2"
 import storage from "redux-persist/lib/storage" 
 import crossBrowserListener from "../utils/reduxpersist-listener"
-import { rootReducer } from "./rootReducer"
+import { combinedReducer, rootReducer } from "./rootReducer"
 
  
 export const persistConfig = {
-    key: "root",
+    key: "browser-chat",
     storage,
-    stateReconciler: hardSet
-
+    blacklist:["join"]
+    // stateReconciler: autoMergeLevel2
   }
    
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
   reducer: persistedReducer,
-  devTools:import.meta.env.VITE_NODE_ENV,
+  devTools:import.meta.env.VITE_NODE_ENV==="development",
   middleware:(getDefaultMiddleware)=>{
     return   getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredActions: [FLUSH, PAUSE, REHYDRATE,PERSIST, PURGE, REGISTER],
       },
-    }).concat()
+    })
   }
 })
 
 export const persistor = persistStore(store)
 
 // subscribe to changes from localstorage
-window.addEventListener("storage", crossBrowserListener(store, persistConfig));
+//window.addEventListener("storage", crossBrowserListener(store, persistConfig));
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType<typeof combinedReducer>
 
 export type AppDispatch = typeof store.dispatch
