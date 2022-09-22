@@ -1,8 +1,12 @@
-import { getStoredState, REHYDRATE } from "redux-persist"
+import { EnhancedStore, AnyAction, MiddlewareArray } from "@reduxjs/toolkit"
+import { getStoredState, PersistConfig, REHYDRATE } from "redux-persist"
+import { ThunkMiddleware } from "redux-thunk"
 
-const  crossBrowserListener=(store:any, persistConfig:any ) =>{
+const  crossBrowserListener=(store: EnhancedStore<unknown, AnyAction, MiddlewareArray<[ThunkMiddleware<unknown, AnyAction, undefined>]>>,
+     persistConfig: PersistConfig<unknown, unknown, unknown, unknown> ) =>{
   return async function() {
     const state = await getStoredState(persistConfig)
+    
     store.dispatch({
       type: REHYDRATE,
       key: persistConfig.key,
