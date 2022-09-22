@@ -1,19 +1,20 @@
 import { AnyAction, combineReducers,Reducer } from "@reduxjs/toolkit";
+import joinChatReducer from "../features/JoinChat/joinChatSlice";
 import { RootState } from "./store";
 
 // Combines reducers
 const combinedReducer = combineReducers({
-    // [studentClassesApi.reducerPath]:studentClassesApi.reducer,
-    //   studentData: StudentSliceReducer
+    join:joinChatReducer
   });
   
   
   
   // Declare root reducer to help clear state when user logs out
 export  const rootReducer: Reducer = (state: RootState, action: AnyAction) => {
-    // if (action.type === "logoutStudent") {
-    //   state = {} as RootState;
-    // }
+    if (action.type === "REHYDRATE") {
+      // eslint-disable-next-line no-self-assign
+      state = state
+    }
     return combinedReducer(state, action);
   };
   
