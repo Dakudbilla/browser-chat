@@ -6,13 +6,17 @@ import { persistStore, persistReducer,
     PERSIST,
     PURGE,
     REGISTER,} from "redux-persist"
+import hardSet from "redux-persist/lib/stateReconciler/hardSet"
 import storage from "redux-persist/lib/storage" 
+import crossBrowserListener from "../utils/reduxpersist-listener"
 import { rootReducer } from "./rootReducer"
 
  
-const persistConfig = {
+export const persistConfig = {
     key: "root",
     storage,
+    stateReconciler: hardSet
+
   }
    
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -30,6 +34,9 @@ export const store = configureStore({
 })
 
 export const persistor = persistStore(store)
+
+// subscribe to changes from localstorage
+window.addEventListener("storage", crossBrowserListener(store, persistConfig));
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>
