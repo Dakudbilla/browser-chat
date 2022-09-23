@@ -5,7 +5,7 @@ interface ChatState{
     chats:Message[]
 }
 
-interface Message{
+export interface Message{
     username:string
     message:string
 }
